@@ -1,0 +1,17 @@
+*.gem
+*.rbc
+.bundle
+.config
+.yardoc
+InstalledFiles
+_yardoc
+coverage
+doc/
+lib/bundler/man
+development/.vagrant/
+pkg
+rdoc
+spec/reports
+test/tmp
+test/version_tmp
+tmp
