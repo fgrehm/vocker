@@ -24,14 +24,18 @@ module VagrantPlugins
           cids_dir = "/var/lib/vocker/cids"
           config[:cidfile] ||= "#{cids_dir}/#{Digest::SHA1.hexdigest name}"
 
-          id = "$(cat #{config[:cidfile]})"
-
           @machine.communicate.sudo("mkdir -p #{cids_dir}")
-          if container_exist?(id)
-            start_container(id)
-          else
-            create_container(config)
-          end
+          run_container(config)
+        end
+      end
+
+      def run_container(config)
+        id = "$(cat #{config[:cidfile]})"
+
+        if container_exist?(id)
+          start_container(id)
+        else
+          create_container(config)
         end
       end
 
