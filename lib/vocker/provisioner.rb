@@ -14,7 +14,7 @@ module VagrantPlugins
       end
 
       def provision
-        @logger = Log4r::Logger.new("vagrant::plugins::docker-provisioner")
+        @logger = Log4r::Logger.new("vagrant::provisioners::vocker")
 
         @logger.info("Checking for Docker installation...")
         @installer.ensure_installed
