@@ -32,7 +32,7 @@ describe VagrantPlugins::Vocker::DockerClient do
 
     it 'ensures container ids folder exists' do
       subject.run containers
-      expect(communicator).to have_received.sudo(with{|cmd| cmd == 'mkdir -p /var/lib/vocker/cids'})
+      expect(communicator).to have_received.sudo('mkdir -p /var/lib/vocker/cids')
     end
 
     it 'automatically assigns a digest of the command as the cidfile if not specified' do
