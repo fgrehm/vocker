@@ -30,6 +30,8 @@ module VagrantPlugins
       end
 
       def run_container(config)
+        raise "Container's cidfile was not provided!" unless config[:cidfile]
+
         id = "$(cat #{config[:cidfile]})"
 
         if container_exist?(id)
