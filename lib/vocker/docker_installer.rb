@@ -24,6 +24,10 @@ module VagrantPlugins
             raise Errors::DockerInstallFailed
           end
         end
+
+        if Gem::Version.new(Vagrant::VERSION) >= Gem::Version.new('1.3.0')
+          @machine.guest.capability(:docker_configure_auto_start)
+        end
       end
     end
   end

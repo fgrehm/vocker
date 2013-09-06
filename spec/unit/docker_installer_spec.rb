@@ -43,6 +43,7 @@ describe VagrantPlugins::Vocker::DockerInstaller do
 
     expect(guest).to have_received.capability(:docker_installed)
     expect(guest).to have_received.capability(:docker_install)
+    expect(guest).to have_received.capability(:docker_configure_auto_start)
   end
 
   it 'errors out if docker could not be installed' do

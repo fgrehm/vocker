@@ -21,6 +21,11 @@ module VagrantPlugins
         Cap::Debian::DockerInstall
       end
 
+      guest_capability("debian", "docker_configure_auto_start") do
+        require_relative "cap/debian/docker_configure_auto_start"
+        Cap::Debian::DockerConfigureAutoStart
+      end
+
       guest_capability("linux", "docker_installed") do
         require_relative "cap/linux/docker_installed"
         Cap::Linux::DockerInstalled
