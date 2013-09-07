@@ -49,6 +49,13 @@ describe VagrantPlugins::Vocker::DockerClient do
       expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-cidfile=\/foo\/bla/})
     end
 
+    it 'allows a dns to be specified' do
+      stub(communicator).test(with{|cmd| cmd =~ /docker ps/}) { false }
+      containers['mysql'][:dns] = '127.0.0.1'
+      subject.run containers
+      expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-dns=127\.0\.0\.1/})
+    end
+
     context 'when the container already exists' do
       before do
         stub(communicator).test(with{|cmd| cmd =~ /docker ps/}) { true }

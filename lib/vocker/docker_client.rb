@@ -50,9 +50,11 @@ module VagrantPlugins
       end
 
       def create_container(config)
+        args = "-cidfile=#{config[:cidfile]} -d"
+        args << " -dns=#{config[:dns]}" if config[:dns]
         @machine.communicate.sudo %[
           rm -f #{config[:cidfile]}
-          docker run -cidfile=#{config[:cidfile]} -d #{config[:image]} #{config[:cmd]}
+          docker run #{args} #{config[:image]} #{config[:cmd]}
         ]
       end
     end
