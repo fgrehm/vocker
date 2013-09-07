@@ -1,3 +1,7 @@
+## [0.3.0](https://github.com/fgrehm/vocker/compare/v0.2.1...v0.3.0) (September 7, 2013)
+
+  - Add support for Docker's `-dns` parameter
+
 ## [0.2.1](https://github.com/fgrehm/vocker/compare/v0.2.0...v0.2.1) (September 5, 2013)
 
   - Configure Docker to automatically restart previously running containers on boot [GH-4]
