@@ -25,8 +25,10 @@ module VagrantPlugins
           end
         end
 
-        if Gem::Version.new(Vagrant::VERSION) >= Gem::Version.new('1.3.0')
+        if @machine.guest.capability?(:docker_configure_auto_start)
           @machine.guest.capability(:docker_configure_auto_start)
+        else
+          @machine.env.ui.warn I18n.t('vagrant.docker_auto_start_not_available')
         end
       end
     end
