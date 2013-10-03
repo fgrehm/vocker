@@ -26,8 +26,7 @@ vagrant plugin install vocker
 
 ## Status
 
-Early development. It can be useful for trying out Docker and it's growing "ecossystem"
-but the feature set and configuration format might change rapidly.
+Early development. It can be useful for trying out Docker and its growing "ecosystem" but the feature set and configuration format might change rapidly.
 
 Apart from that I've only used the plugin on the following Ubuntu 13.04 VMs:
 
@@ -40,8 +39,7 @@ containers you need some extra steps described below_
 
 ## Usage
 
-Currently Vocker can be used in three different ways: as a provisioner, as a command
-and as a foundation for other Vagrant plugins.
+Currently Vocker can be used in three different ways: as a provisioner, as a command and as a foundation for other Vagrant plugins.
 
 ### Provisioner
 
