@@ -1,3 +1,8 @@
+## [0.3.1](https://github.com/fgrehm/vocker/compare/v0.3.0...v0.3.1) (October 3, 2013)
+
+  - Check if container is running before trying to restart
+  - Configure automatic restart of containers regardless of Vagrant version
+
 ## [0.3.0](https://github.com/fgrehm/vocker/compare/v0.2.1...v0.3.0) (September 7, 2013)
 
   - Add support for Docker's `-dns` parameter
