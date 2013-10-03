@@ -58,12 +58,19 @@ describe VagrantPlugins::Vocker::DockerClient do
 
     context 'when the container already exists' do
       before do
-        stub(communicator).test(with{|cmd| cmd =~ /docker ps/}) { true }
-        subject.run containers
+        stub(communicator).test(with{|cmd| cmd =~ /docker ps -a -q/}) { true }
       end
 
-      it 'starts the container' do
+      it 'starts the container if it is stopped' do
+        stub(communicator).test(with{|cmd| cmd =~ /docker ps -q/}) { false }
+        subject.run containers
         expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /docker start/})
+      end
+
+      it 'noops if container is already running' do
+        stub(communicator).test(with{|cmd| cmd =~ /docker ps -q/}) { true }
+        subject.run containers
+        expect(communicator).to_not have_received.sudo(with{|cmd| cmd =~ /docker start/})
       end
     end
 

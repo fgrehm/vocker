@@ -46,7 +46,13 @@ module VagrantPlugins
       end
 
       def start_container(id)
-        @machine.communicate.sudo("docker start #{id}")
+        unless container_running?(id)
+          @machine.communicate.sudo("docker start #{id}")
+        end
+      end
+
+      def container_running?(id)
+        @machine.communicate.test("sudo docker ps -q | grep #{id}")
       end
 
       def create_container(config)
