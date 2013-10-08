@@ -56,6 +56,13 @@ describe VagrantPlugins::Vocker::DockerClient do
       expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-dns=127\.0\.0\.1/})
     end
 
+    it 'allows additional params to be passed to the run command if specified' do
+      stub(communicator).test(with{|cmd| cmd =~ /docker ps/}) { false }
+      containers['mysql'][:additional_run_args] = '-p 49176:5601 -p 49175:514'
+      subject.run containers
+      expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-p 49176:5601 -p 49175:514/})
+    end
+
     context 'when the container already exists' do
       before do
         stub(communicator).test(with{|cmd| cmd =~ /docker ps -a -q/}) { true }
