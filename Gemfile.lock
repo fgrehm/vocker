@@ -75,7 +75,7 @@ GEM
     thor (0.18.1)
     vagrant-cachier (0.3.2)
     vagrant-global-status (0.1.1)
-    vagrant-lxc (0.5.0)
+    vagrant-lxc (0.6.3)
     vagrant-pristine (0.2.0)
 
 PLATFORMS
