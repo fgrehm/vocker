@@ -65,6 +65,7 @@ containers to run:
 ```ruby
 Vagrant.configure("2") do |config|
   config.vm.provision :docker do |docker|
+    # If you just want to pull in some base images
     docker.pull_images 'ubuntu', 'busybox'
 
     # Command + image
@@ -76,7 +77,11 @@ Vagrant.configure("2") do |config|
     # Base image (requires ENTRYPOINT / CMD) to be configured:
     #   * http://docs.docker.io/en/latest/use/builder/#entrypoint
     #   * http://docs.docker.io/en/latest/use/builder/#cmd
-    docker.run 'mysql'
+    docker.run 'user/mysql'
+
+    # If you need to go deeper, you can pass in additional `docker run` arguments
+    # Same as: docker run -v /host:/container -p 1234:3306 user/patched-mysql /usr/bin/mysql
+    docker.run mysql: { additional_run_args: '-v /host:/container -p 1234:3306', image: 'user/patched-mysql', cmd: '/usr/bin/mysql'}
   end
 end
 ```
