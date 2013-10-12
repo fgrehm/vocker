@@ -19,18 +19,12 @@ Vagrant.configure("2") do |config|
     lxc.customize 'aa_profile', 'unconfined'
   end
 
+  # Required to boot nested containers
   config.vm.provision :shell, inline: %[
     if ! [ -f /etc/default/lxc ]; then
       cat <<STR > /etc/default/lxc
-LXC_AUTO="true"
-USE_LXC_BRIDGE="true"
-LXC_BRIDGE="lxcbr0"
-LXC_ADDR="10.0.253.1"
-LXC_NETMASK="255.255.255.0"
-LXC_NETWORK="10.0.253.0/24"
-LXC_DHCP_RANGE="10.0.253.2,10.0.253.254"
-LXC_DHCP_MAX="253"
-LXC_SHUTDOWN_TIMEOUT=120
+LXC_AUTO="false"
+USE_LXC_BRIDGE="false"
 STR
     fi
   ]
@@ -38,9 +32,9 @@ STR
   config.vm.define :vm1 do |vm1|
     vm1.vm.provision :docker do |docker|
       docker.pull_images 'ubuntu', 'busybox'
-      docker.run 'echo ls -la --color', 'ubuntu'
-      docker.run 'echo ls -la --color', image: 'ubuntu'  # Above is the default
-      docker.run 'date', image: 'ubuntu', cmd: '/bin/sh -c "while true; date; do echo hello world; sleep 1; done"'
+      docker.run 'echo ls -la --color', 'busybox'
+      docker.run 'echo ls -la --color', image: 'busybox'  # Above is the default
+      docker.run 'date', additional_run_args: '-p 1234:562', image: 'busybox', cmd: '/bin/sh -c "while true; date; do echo hello world; sleep 1; done"'
     end
   end
 
