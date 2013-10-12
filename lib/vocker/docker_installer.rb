@@ -30,6 +30,10 @@ module VagrantPlugins
         else
           @machine.env.ui.warn I18n.t('vagrant.docker_auto_start_not_available')
         end
+
+        if @machine.guest.capability?(:docker_configure_vagrant_user)
+          @machine.guest.capability(:docker_configure_vagrant_user)
+        end
       end
     end
   end
