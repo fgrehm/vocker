@@ -15,6 +15,12 @@ module VagrantPlugins
         end
       end
 
+      def start_service
+        if !daemon_running? && @machine.guest.capability?(:docker_start_service)
+          @machine.guest.capability(:docker_start_service)
+        end
+      end
+
       def daemon_running?
         @machine.communicate.test('test -f /var/run/docker.pid')
       end

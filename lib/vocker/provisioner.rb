@@ -19,6 +19,8 @@ module VagrantPlugins
         @logger.info("Checking for Docker installation...")
         @installer.ensure_installed
 
+        # Attempt to start service if not running
+        @client.start_service
         unless @client.daemon_running?
           raise Errors::DockerNotRunning
         end

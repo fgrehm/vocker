@@ -31,6 +31,11 @@ module VagrantPlugins
         Cap::Debian::DockerConfigureVagrantUser
       end
 
+      guest_capability("debian", "docker_start_service") do
+        require_relative "cap/debian/docker_start_service"
+        Cap::Debian::DockerStartService
+      end
+
       guest_capability("linux", "docker_installed") do
         require_relative "cap/linux/docker_installed"
         Cap::Linux::DockerInstalled
