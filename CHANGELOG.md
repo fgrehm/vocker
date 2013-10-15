@@ -1,3 +1,7 @@
+## [0.3.3](https://github.com/fgrehm/vocker/compare/v0.3.2...v0.3.3) (October 15, 2013)
+
+  - Prevent `-r=true` from being appended multiple times to `/etc/init/docker.conf`
+
 ## [0.3.2](https://github.com/fgrehm/vocker/compare/v0.3.1...v0.3.2) (October 12, 2013)
 
   - Add support for additional parameters to be passed to the docker run cmd [GH-8](https://github.com/fgrehm/vocker/pull/8)
