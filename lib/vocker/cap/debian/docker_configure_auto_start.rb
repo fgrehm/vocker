@@ -4,7 +4,9 @@ module VagrantPlugins
       module Debian
         module DockerConfigureAutoStart
           def self.docker_configure_auto_start(machine)
-            machine.communicate.sudo("sed -i.bak 's/docker -d/docker -d -r=true/' /etc/init/docker.conf ")
+            if ! machine.communicate.test('grep -q \'\-r=true\' /etc/init/docker.conf')
+              machine.communicate.sudo("sed -i.bak 's/docker -d/docker -d -r=true/' /etc/init/docker.conf ")
+            end
           end
         end
       end
