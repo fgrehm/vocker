@@ -112,8 +112,9 @@ pull, push, restart, rm, rmi, run, search, start, stop, tag, version, wait
 
 In case you want to build a Vagrant plugin that needs to interact with Docker you
 can add this plugin as a dependency and use [DockerClient](lib/vocker/docker_client.rb)
-/ [DockerInstaller](lib/vocker/docker_installer.rb) classes. An example of usage
-will be provided _"soon"_.
+/ [DockerInstaller](lib/vocker/docker_installer.rb) classes. As an example you can
+check out [Ventriloquist](https://github.com/fgrehm/ventriloquist) that builds on top
+of this plugin.
 
 
 ### Usage with [vagrant-lxc](https://github.com/fgrehm/vagrant-lxc)
