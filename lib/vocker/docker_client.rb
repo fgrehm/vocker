@@ -62,6 +62,9 @@ module VagrantPlugins
       end
 
       def create_container(config)
+        # DISCUSS: Does this really belong here?
+        ensure_bind_mounts_exist(config)
+
         args = "-cidfile=#{config[:cidfile]} -d "
         args << prepare_run_arguments(config)
         @machine.communicate.sudo %[
@@ -71,6 +74,15 @@ module VagrantPlugins
       end
 
       private
+
+      def ensure_bind_mounts_exist(config)
+        Array(config[:volumes]).each do |volume|
+          if volume =~ /(.+):.+/
+            guest_vm_path = $1
+            @machine.communicate.sudo "mkdir -p #{guest_vm_path}"
+          end
+        end
+      end
 
       def prepare_run_arguments(config)
         args = []

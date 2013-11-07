@@ -112,5 +112,28 @@ describe VagrantPlugins::Vocker::DockerClient do
         expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /docker run/})
       end
     end
+
+    context 'bind mounts' do
+      before do
+        containers['mysql'][:volumes] = '/guest/path:/container/path'
+        stub(communicator).test(with{|cmd| cmd =~ /docker ps/}) { false }
+        subject.run containers
+      end
+
+      it 'ensures the guest VM path exists' do
+        expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /mkdir -p \/guest\/path/})
+      end
+    end
+
+    context 'data volumes' do
+      before do
+        containers['mysql'][:volumes] = ['/container/path']
+        subject.run containers
+      end
+
+      it 'does not try to create a guest path it' do
+        expect(communicator).to_not have_received.sudo(with{|cmd| cmd =~ /mkdir -p \/container\/path/})
+      end
+    end
   end
 end
