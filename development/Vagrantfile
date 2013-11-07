@@ -31,7 +31,7 @@ STR
 
   config.vm.define :vm1 do |vm1|
     vm1.vm.provision :docker do |docker|
-      docker.pull_images 'ubuntu', 'busybox'
+      docker.pull_images 'busybox'
       docker.run 'echo ls -la --color', 'busybox'
       docker.run 'echo ls -la --color', image: 'busybox'  # Above is the default
       docker.run 'date', additional_run_args: '-p 1234:562', image: 'busybox', cmd: '/bin/sh -c "while true; date; do echo hello world; sleep 1; done"'
@@ -39,6 +39,8 @@ STR
   end
 
   config.vm.define :vm2 do |vm2|
-    vm2.vm.provision :docker
+    vm2.vm.provision :docker do |docker|
+      docker.version = '0.6.5'
+    end
   end
 end
