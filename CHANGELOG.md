@@ -1,3 +1,8 @@
+## [0.4.0](https://github.com/fgrehm/vocker/compare/v0.3.3...master) (unreleased)
+
+  - Support for installing a specific Docker version [GH-9]
+  - Improved checking for whether Docker is installed
+
 ## [0.3.3](https://github.com/fgrehm/vocker/compare/v0.3.2...v0.3.3) (October 15, 2013)
 
   - Prevent `-r=true` from being appended multiple times to `/etc/init/docker.conf`
