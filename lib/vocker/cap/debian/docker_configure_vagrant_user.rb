@@ -5,7 +5,7 @@ module VagrantPlugins
         module DockerConfigureVagrantUser
           def self.docker_configure_vagrant_user(machine)
             # FIXME: We should make use of the config.ssh.username here
-            machine.communicate.sudo("usermod -a -G docker vagrant")
+            machine.communicate.sudo("usermod -a -G docker #{machine.config.ssh.username || "vagrant"}")
           end
         end
       end
