@@ -35,32 +35,43 @@ describe VagrantPlugins::Vocker::DockerClient do
       expect(communicator).to have_received.sudo('mkdir -p /var/lib/vocker/cids')
     end
 
-    it 'automatically assigns a digest of the command as the cidfile if not specified' do
-      stub(communicator).test(with{|cmd| cmd =~ /docker ps/}) { false }
-      stub(Digest::SHA1).hexdigest('mysql') { 'digest' }
-      subject.run containers
-      expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-cidfile=\/var\/lib\/vocker\/cids\/digest/})
-    end
+    context 'parameters' do
+      let(:containers) { {
+        'my-db' => {
+          image:               'mysql',
+          cidfile:             '/foo/bla',
+          dns:                 '127.0.0.1',
+          additional_run_args: '-p 49176:5601 -p 49175:514'
+        }
+      } }
 
-    it 'allows cidfile to be specified' do
-      stub(communicator).test(with{|cmd| cmd =~ /docker ps/}) { false }
-      containers['mysql'][:cidfile] = '/foo/bla'
-      subject.run containers
-      expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-cidfile=\/foo\/bla/})
-    end
+      before do
+        stub(communicator).test(with{|cmd| cmd =~ /docker ps/}) { false }
+        subject.run containers
+      end
 
-    it 'allows a dns to be specified' do
-      stub(communicator).test(with{|cmd| cmd =~ /docker ps/}) { false }
-      containers['mysql'][:dns] = '127.0.0.1'
-      subject.run containers
-      expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-dns=127\.0\.0\.1/})
-    end
+      it 'automatically assigns a digest of the image name as the cidfile if not specified' do
+        stub(Digest::SHA1).hexdigest('my-db') { 'digest' }
+        containers['my-db'][:cidfile] = nil
+        subject.run containers
+        expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-cidfile=\/var\/lib\/vocker\/cids\/digest/})
+      end
 
-    it 'allows additional params to be passed to the run command if specified' do
-      stub(communicator).test(with{|cmd| cmd =~ /docker ps/}) { false }
-      containers['mysql'][:additional_run_args] = '-p 49176:5601 -p 49175:514'
-      subject.run containers
-      expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-p 49176:5601 -p 49175:514/})
+      it 'allows cidfile to be specified' do
+        expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-cidfile=\/foo\/bla/})
+      end
+
+      it 'allows a dns to be specified' do
+        expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-dns=127\.0\.0\.1/})
+      end
+
+      it 'provides the container name to the docker command' do
+        expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-name=my-db/})
+      end
+
+      it 'allows additional params to be passed to the run command' do
+        expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-p 49176:5601 -p 49175:514/})
+      end
     end
 
     context 'when the container already exists' do

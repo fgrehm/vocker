@@ -31,7 +31,7 @@ module VagrantPlugins
           config[:cidfile] ||= "#{cids_dir}/#{Digest::SHA1.hexdigest name}"
 
           @machine.communicate.sudo("mkdir -p #{cids_dir}")
-          run_container(config)
+          run_container({name: name}.merge config)
         end
       end
 
@@ -64,6 +64,7 @@ module VagrantPlugins
       def create_container(config)
         args = "-cidfile=#{config[:cidfile]} -d"
         args << " -dns=#{config[:dns]}" if config[:dns]
+        args << " -name=#{config[:name]}" if config[:name]
         args << " #{config[:additional_run_args]}" if config[:additional_run_args]
         @machine.communicate.sudo %[
           rm -f #{config[:cidfile]}
