@@ -3,8 +3,9 @@ require_relative "errors"
 module VagrantPlugins
   module Vocker
     class DockerInstaller
-      def initialize(machine)
+      def initialize(machine, version)
         @machine = machine
+        @version = version
       end
 
       # This handles verifying the Docker installation, installing it if it was
@@ -18,7 +19,7 @@ module VagrantPlugins
 
         if !@machine.guest.capability(:docker_installed)
           @machine.ui.info(I18n.t("vagrant.docker_installing"))
-          @machine.guest.capability(:docker_install)
+          @machine.guest.capability(:docker_install, @version)
 
           if !@machine.guest.capability(:docker_installed)
             raise Errors::DockerInstallFailed

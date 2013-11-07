@@ -4,10 +4,12 @@ module VagrantPlugins
   module Vocker
     class Config < Vagrant.plugin("2", :config)
       attr_reader :images, :containers
+      attr_accessor :version
 
       def initialize
         @images     = Set.new
         @containers = Hash.new
+        @version    = :latest
       end
 
       def pull_images(*images)
@@ -28,6 +30,7 @@ module VagrantPlugins
           params[:cmd] ||= container_name
         end
 
+        # TODO: Validate provided parameters before assignment
         @containers[container_name.to_s] = params
       end
 

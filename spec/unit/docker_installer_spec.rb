@@ -11,8 +11,9 @@ describe VagrantPlugins::Vocker::DockerInstaller do
   fake(:guest)
   fake(:ui) { Vagrant::UI::Interface }
   let(:machine) { fake(:machine, guest: guest, ui: ui) }
+  let(:version) { '0.6.4' }
 
-  subject { described_class.new(machine) }
+  subject { described_class.new(machine, version) }
 
   it 'skips docker installation if guest is not capable' do
     stub(guest).capability?(:docker_installed) { false }
@@ -42,7 +43,7 @@ describe VagrantPlugins::Vocker::DockerInstaller do
     subject.ensure_installed
 
     expect(guest).to have_received.capability(:docker_installed)
-    expect(guest).to have_received.capability(:docker_install)
+    expect(guest).to have_received.capability(:docker_install, version)
     expect(guest).to have_received.capability(:docker_configure_auto_start)
   end
 
