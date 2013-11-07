@@ -65,6 +65,10 @@ containers to run:
 ```ruby
 Vagrant.configure("2") do |config|
   config.vm.provision :docker do |docker|
+    # Things are changing pretty fast, you might want to lock the Docker
+    # version on the guest VM.
+    docker.version = '0.6.3' # default -> :latest
+
     # If you just want to pull in some base images
     docker.pull_images 'ubuntu', 'busybox'
 
