@@ -1,5 +1,7 @@
 ## [0.4.0](https://github.com/fgrehm/vocker/compare/v0.3.3...master) (unreleased)
 
+  - Support for data volumes [GH-13]
+  - Support for exposing ports [GH-10]
   - Support for naming containers [GH-11]
   - Support for installing a specific Docker version [GH-9]
   - Improved checking for whether Docker is installed

@@ -62,14 +62,27 @@ module VagrantPlugins
       end
 
       def create_container(config)
-        args = "-cidfile=#{config[:cidfile]} -d"
-        args << " -dns=#{config[:dns]}" if config[:dns]
-        args << " -name=#{config[:name]}" if config[:name]
-        args << " #{config[:additional_run_args]}" if config[:additional_run_args]
+        args = "-cidfile=#{config[:cidfile]} -d "
+        args << prepare_run_arguments(config)
         @machine.communicate.sudo %[
           rm -f #{config[:cidfile]}
           docker run #{args} #{config[:image]} #{config[:cmd]}
         ]
+      end
+
+      private
+
+      def prepare_run_arguments(config)
+        args = []
+
+        args << "-dns=#{config[:dns]}"            if config[:dns]
+        args << "-name=#{config[:name]}"          if config[:name]
+        args << "#{config[:additional_run_args]}" if config[:additional_run_args]
+
+        args += Array(config[:volumes]).map { |volume| "-v #{volume}" }
+        args += Array(config[:ports]).map   { |port| "-p #{port}" }
+
+        args.compact.flatten.join ' '
       end
     end
   end

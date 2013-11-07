@@ -41,7 +41,9 @@ describe VagrantPlugins::Vocker::DockerClient do
           image:               'mysql',
           cidfile:             '/foo/bla',
           dns:                 '127.0.0.1',
-          additional_run_args: '-p 49176:5601 -p 49175:514'
+          volumes:             ['/host/path:/guest/path', '/container-volume'],
+          ports:               ['1:2', ':3'],
+          additional_run_args: 'some parameter'
         }
       } }
 
@@ -65,12 +67,20 @@ describe VagrantPlugins::Vocker::DockerClient do
         expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-dns=127\.0\.0\.1/})
       end
 
+      it 'allows an array of ports to be specified' do
+        expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-p 1:2 -p :3/})
+      end
+
+      it 'allows an array of volumes to be specified' do
+        expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-v \/host\/path:\/guest\/path -v \/container-volume/})
+      end
+
       it 'provides the container name to the docker command' do
         expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-name=my-db/})
       end
 
       it 'allows additional params to be passed to the run command' do
-        expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-p 49176:5601 -p 49175:514/})
+        expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /some parameter/})
       end
     end
 
