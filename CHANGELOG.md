@@ -1,11 +1,17 @@
 ## [0.4.0](https://github.com/fgrehm/vocker/compare/v0.3.3...master) (unreleased)
 
+IMPROVEMENTS:
+
   - Make use of configured SSH user when adding to `docker` group [GH-17]
   - Support for data volumes [GH-13]
   - Support for exposing ports [GH-10]
   - Support for naming containers [GH-11]
   - Support for installing a specific Docker version [GH-9]
   - Improved checking for whether Docker is installed
+
+BUG FIXES:
+
+  - Make sure `curl` is installed on guest VMs [GH-15]
 
 ## [0.3.3](https://github.com/fgrehm/vocker/compare/v0.3.2...v0.3.3) (October 15, 2013)
 
