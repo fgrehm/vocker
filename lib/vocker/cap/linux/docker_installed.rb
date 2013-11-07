@@ -4,7 +4,7 @@ module VagrantPlugins
       module Linux
         module DockerInstalled
           def self.docker_installed(machine)
-            machine.communicate.test("test -d /var/lib/docker", sudo: true)
+            machine.communicate.test("test -f /usr/bin/docker", sudo: true)
           end
         end
       end
