@@ -39,8 +39,22 @@ STR
   end
 
   config.vm.define :vm2 do |vm2|
+    # TODO: Clean up these examples
     vm2.vm.provision :docker do |docker|
       docker.version = '0.6.5'
+
+      hello_daemon = 'while true; do date; date > /tmp/testing/dates.log; date +%s > /var/lib/other/seconds; echo hello world; sleep 1; done'
+      docker.run 'date',
+                 image:   'busybox',
+                 volumes: ['/tmp/testing:/tmp/testing', '/var/lib/other'],
+                 ports:   ['8080/udp', '8081:80'],
+                 cmd:     "/bin/sh -c '#{hello_daemon}'"
+
+      hello_daemon = 'while true; do date; echo hello world; sleep 1; done'
+      docker.run 'date-2',
+                 image: 'busybox',
+                 link:  ['date:datetime'],
+                 cmd:   "/bin/sh -c '#{hello_daemon}'"
     end
   end
 end

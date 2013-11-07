@@ -76,16 +76,28 @@ Vagrant.configure("2") do |config|
     docker.run 'echo ls -la --color', 'ubuntu'
 
     # Unique container name + other configs
-    docker.run 'date', image: 'ubuntu', cmd: '/bin/sh -c "while true; date; do echo hello world; sleep 1; done"'
+    docker.run 'app-1',
+               image:   'user/app',
+               ports:   ['8080:80', '80', ':80'],
+               links:   ['mysql:db'],
+               # Vocker will automagically create /var/lib/docker/mysql on the
+               # guest VM if it doesn't exist
+               volumes: ['/var/lib/docker/app:/var/lib/app'],
+               cmd:     '/usr/bin/run-app'
 
     # Base image (requires ENTRYPOINT / CMD) to be configured:
     #   * http://docs.docker.io/en/latest/use/builder/#entrypoint
     #   * http://docs.docker.io/en/latest/use/builder/#cmd
     docker.run 'user/mysql'
 
-    # If you need to go deeper, you can pass in additional `docker run` arguments
-    # Same as: docker run -v /host:/container -p 1234:3306 user/patched-mysql /usr/bin/mysql
-    docker.run mysql: { additional_run_args: '-v /host:/container -p 1234:3306', image: 'user/patched-mysql', cmd: '/usr/bin/mysql'}
+    # If you need to use some random / new parameter you can pass in additional
+    # arguments as wanted. The example below is the same as:
+    #  docker run -v /host:/container -p 1234:3306 -d user/patched-mysql /usr/bin/mysql
+    docker.run mysql: {
+      additional_run_args: '-v /host:/container -p 1234:3306',
+      image: 'user/patched-mysql',
+      cmd: '/usr/bin/mysql'
+    }
   end
 end
 ```
