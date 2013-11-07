@@ -93,6 +93,7 @@ module VagrantPlugins
 
         args += Array(config[:volumes]).map { |volume| "-v #{volume}" }
         args += Array(config[:ports]).map   { |port| "-p #{port}" }
+        args += Array(config[:links]).map   { |link| "-link #{link}" }
 
         args.compact.flatten.join ' '
       end

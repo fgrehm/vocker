@@ -43,6 +43,7 @@ describe VagrantPlugins::Vocker::DockerClient do
           dns:                 '127.0.0.1',
           volumes:             ['/host/path:/guest/path', '/container-volume'],
           ports:               ['1:2', ':3'],
+          links:               ['other:db', 'foo:bar'],
           additional_run_args: 'some parameter'
         }
       } }
@@ -73,6 +74,10 @@ describe VagrantPlugins::Vocker::DockerClient do
 
       it 'allows an array of volumes to be specified' do
         expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-v \/host\/path:\/guest\/path -v \/container-volume/})
+      end
+
+      it 'allows an array of links to be specified' do
+        expect(communicator).to have_received.sudo(with{|cmd| cmd =~ /-link other:db -link foo:bar/})
       end
 
       it 'provides the container name to the docker command' do
