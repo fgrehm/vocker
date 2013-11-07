@@ -1,5 +1,6 @@
 ## [0.4.0](https://github.com/fgrehm/vocker/compare/v0.3.3...master) (unreleased)
 
+  - Make use of configured SSH user when adding to `docker` group [GH-17]
   - Support for data volumes [GH-13]
   - Support for exposing ports [GH-10]
   - Support for naming containers [GH-11]
