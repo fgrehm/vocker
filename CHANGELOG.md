@@ -1,3 +1,5 @@
+## [0.4.1](https://github.com/fgrehm/vocker/compare/v0.4.0...master) (unreleased)
+
 ## [0.4.0](https://github.com/fgrehm/vocker/compare/v0.3.3...v0.4.0) (November 8, 2013)
 
 IMPROVEMENTS:
