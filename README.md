@@ -1,6 +1,6 @@
 # Vocker
 
-An experimental plugin that introduces [Docker](http://docker.io) to [Vagrant](http://www.vagrantup.com/)
+A plugin that introduces [Docker](http://docker.io) to [Vagrant](http://www.vagrantup.com/)
 as a [provisioner](http://docs.vagrantup.com/v2/plugins/provisioners.html) and
 as a command that allows you to interact with the guest machine Docker
 installation. It can also be used for building other Vagrant plugins that
