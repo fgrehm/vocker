@@ -1,5 +1,9 @@
 ## [0.4.1](https://github.com/fgrehm/vocker/compare/v0.4.0...master) (unreleased)
 
+IMPROVEMENTS:
+
+  - Make use of `https` when downloading Docker's gpg key [GH-19]
+
 ## [0.4.0](https://github.com/fgrehm/vocker/compare/v0.3.3...v0.4.0) (November 8, 2013)
 
 IMPROVEMENTS:
