@@ -8,12 +8,9 @@ needs interaction with a Docker instance.
 
 ## DEPRECATION NOTICE
 
-This plugin is about to be merged back into Vagrant core and will be deprecated
-once Vagrant 1.4 is out. I'll ship just one more version with the updates to align
-with the changes introduced on the corresponding pull request.
-
-Please keep an eye on https://github.com/mitchellh/vagrant/pull/2549 for most up
-to date information.
+The has been merged back into Vagrant core and will be deprecated once Vagrant 
+1.4 is out. I'll ship just one more version with the updates to align with the
+changes introduced on the corresponding [pull request](https://github.com/mitchellh/vagrant/pull/2549).
 
 
 ## Installation
