@@ -6,6 +6,15 @@ as a command that allows you to interact with the guest machine Docker
 installation. It can also be used for building other Vagrant plugins that
 needs interaction with a Docker instance.
 
+## DEPRECATION NOTICE
+
+This plugin is about to be merged back into Vagrant core and will be deprecated
+once Vagrant 1.4 is out. I'll ship just one more version with the updates to align
+with the changes introduced on the corresponding pull request.
+
+Please keep an eye on https://github.com/mitchellh/vagrant/pull/2549 for most up
+to date information.
+
 
 ## Installation
 
@@ -108,7 +117,7 @@ without leaving lots of unused containers behind. If you are interested on
 understanding how it works, have a look at [_DockerClient#run_](https://github.com/fgrehm/vocker/blob/master/lib/vocker/docker_client.rb#L22)
 
 
-### `vagrant docker` command
+### `vagrant docker` command (DEPRECATED)
 
 The command is basically a wrapper over `vagrant ssh -c` that allows you
 to run `docker` commands on the guest VM:
@@ -122,6 +131,8 @@ pull, push, restart, rm, rmi, run, search, start, stop, tag, version, wait
 
     -h, --help                       Print this help
 ```
+
+_Please note that the support for the command will be dropped on the next version of the plugin_
 
 
 ### _your-awesome-vagrant-plugin™_
