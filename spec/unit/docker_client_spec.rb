@@ -89,7 +89,7 @@ describe VagrantPlugins::Vocker::DockerClient do
       end
     end
 
-    context 'when the container already exists' do
+    pending 'when the container already exists' do
       before do
         stub(communicator).test(with{|cmd| cmd =~ /docker ps -a -q/}) { true }
       end

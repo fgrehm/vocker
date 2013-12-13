@@ -4,6 +4,11 @@ IMPROVEMENTS:
 
   - Make use of `https` when downloading Docker's gpg key [GH-19]
 
+BUG FIXES:
+
+  - Check for whether containers exists / are running now work across
+    multiple Docker versions [GH-20]
+
 ## [0.4.0](https://github.com/fgrehm/vocker/compare/v0.3.3...v0.4.0) (November 8, 2013)
 
 IMPROVEMENTS:
