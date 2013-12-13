@@ -37,7 +37,7 @@ GIT
 PATH
   remote: .
   specs:
-    vocker (0.4.1)
+    vocker (0.4.2.dev)
 
 GEM
   remote: https://rubygems.org/
