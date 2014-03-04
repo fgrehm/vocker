@@ -6,12 +6,7 @@ as a command that allows you to interact with the guest machine Docker
 installation. It can also be used for building other Vagrant plugins that
 needs interaction with a Docker instance.
 
-## DEPRECATION NOTICE
-
-The plugin has been merged back into Vagrant core and will be deprecated once Vagrant 
-1.4 is out. I'll ship just one more version with the updates to align with the
-changes introduced on the corresponding [pull request](https://github.com/mitchellh/vagrant/pull/2549).
-
+**NOTICE: This plugin is no longer being maintained as its functionality has been merged back into Vagrant core, if you are interested on picking up the gem name please let [@fgrehm](https://github.com/fgrehm) know**.
 
 ## Installation
 
